@@ -2776,6 +2776,16 @@ void MainWindow::on_action_Settings_triggered()
   RDDialog::show(&about);
 }
 
+void MainWindow::on_action_View_Diagnostic_Log_File_triggered()
+{
+  QWidget *logView = m_Ctx.GetDiagnosticLogView()->Widget();
+
+  if(ui->toolWindowManager->toolWindows().contains(logView))
+    ToolWindowManager::raiseToolWindow(logView);
+  else
+    ui->toolWindowManager->addToolWindow(logView, mainToolArea());
+}
+
 void MainWindow::on_action_View_Documentation_triggered()
 {
   QFileInfo fi(QGuiApplication::applicationFilePath());
@@ -2887,16 +2897,6 @@ void MainWindow::on_action_Check_for_Updates_triggered()
       }
     }
   });
-}
-
-void MainWindow::showDiagnosticLogView()
-{
-  QWidget *logView = m_Ctx.GetDiagnosticLogView()->Widget();
-
-  if(ui->toolWindowManager->toolWindows().contains(logView))
-    ToolWindowManager::raiseToolWindow(logView);
-  else
-    ui->toolWindowManager->addToolWindow(logView, mainToolArea());
 }
 
 void MainWindow::updateAvailable_triggered()
